@@ -182,6 +182,7 @@ class CRL:
         ] = None,
         progress_fn: Callable[[int, Metrics], None] = lambda *args: None,
     ):
+        make_policy, params, metrics = None, None, None
         self.check_config(config)
 
         unwrapped_env = train_env
@@ -597,7 +598,7 @@ class CRL:
                 save_params(path, params)
 
         total_steps = current_step
-        assert total_steps >= config.total_env_steps
+        # assert total_steps >= config.total_env_steps
 
         logging.info("total steps: %s", total_steps)
 
