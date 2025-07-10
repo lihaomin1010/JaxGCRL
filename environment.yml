@@ -1,4 +1,4 @@
-name: jaxgcrl
+name: jaxgcrl_1
 channels:
   - conda-forge
 dependencies:

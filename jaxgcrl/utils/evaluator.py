@@ -130,9 +130,9 @@ class ActorEvaluator:
                     for name in [
                         "reward",
                         "success",
-                        "success_easy",
+                        #"success_easy",
                         "dist",
-                        "distance_from_origin",
+                        #"distance_from_origin",
                     ]
                 }
             )

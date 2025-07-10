@@ -84,8 +84,6 @@ class Ant(PipelineEnv):
         low, hi = -self._reset_noise_scale, self._reset_noise_scale
         q = self.sys.init_q + jax.random.uniform(rng1, (self.sys.q_size(),), minval=low, maxval=hi)
         qd = hi * jax.random.normal(rng2, (self.sys.qd_size(),))
-
-        # set the target q, qd
         rng, target = self._random_target(rng)
         q = q.at[-2:].set(target)
         qd = qd.at[-2:].set(0)

@@ -33,15 +33,12 @@ class Reacher(PipelineEnv):
 
     def reset(self, rng: jax.Array) -> State:
         rng, rng1, rng2 = jax.random.split(rng, 3)
-
         q = self.sys.init_q + jax.random.uniform(rng1, (self.sys.q_size(),), minval=-0.1, maxval=0.1)
         qd = jax.random.uniform(rng2, (self.sys.qd_size(),), minval=-0.005, maxval=0.005)
 
-        # set the target q, qd
         _, target = self._random_target(rng)
         q = q.at[2:].set(target)
         qd = qd.at[2:].set(0)
-
         pipeline_state = self.pipeline_init(q, qd)
 
         obs = self._get_obs(pipeline_state)
@@ -50,7 +47,9 @@ class Reacher(PipelineEnv):
             "reward_dist": zero,
             "reward_ctrl": zero,
             "success": zero,
+            "success_easy": zero,
             "dist": zero,
+            "distance_from_origin": zero,
         }
         state = State(pipeline_state, obs, reward, done, metrics)
         return state
