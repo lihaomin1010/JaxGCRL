@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export PYTHONPATH=/home/lihaomin/workspace/JaxGCRL/jaxgcrl
+export LD_LIBRARY_PATH=""
 
 # reacher cheetah humanoid
 # ant ant_random_start ant_ball ant_push
@@ -10,8 +10,10 @@ export PYTHONPATH=/home/lihaomin/workspace/JaxGCRL/jaxgcrl
 # pusher_easy pusher_hard pusher_reacher pusher2
 # arm_reach arm_grasp arm_push_easy arm_push_hard arm_binpick_easy arm_binpick_hard
 
+# done
+# reacher
 for seed in 1 ; do
-    for env in reacher cheetah humanoid; do
+    for env in cheetah humanoid; do
         JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
         --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
         --seed ${seed}

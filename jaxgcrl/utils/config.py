@@ -40,7 +40,7 @@ class RunConfig:
     env: Literal[legal_envs]
 
     # total number of environment steps to run
-    total_env_steps: int = 50_000_000
+    total_env_steps: int = 10_000_000
 
     # maximum length of an episode
     episode_length: int = 1001
