@@ -13,6 +13,15 @@ export LD_LIBRARY_PATH=""
 # done
 # reacher
 for seed in 1 ; do
+    for env in reacher ; do
+        JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
+        --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
+        --seed ${seed} --total-env-steps 1000000
+    done
+    echo "env epoch have finished 1."
+done
+
+for seed in 1 ; do
     for env in cheetah humanoid; do
         JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
         --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
@@ -49,29 +58,12 @@ for seed in 1 ; do
 done
 
 for seed in 1 ; do
-    for env in pusher_easy pusher_hard pusher_reacher pusher2; do
-        JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
-        --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
-        --seed ${seed}
-    done
-    echo "env epoch have finished 5."
-done
-
-for seed in 1 ; do
-    for env in arm_reach arm_grasp arm_push_easy arm_push_hard arm_binpick_easy arm_binpick_hard; do
-        JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
-        --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
-        --seed ${seed}
-    done
-    echo "env epoch have finished 6 ."
-done
-
-for seed in 1 ; do
-    for env in reacher cheetah humanoid; do
+    for env in simple_u_maze simple_big_maze simple_hardest_maze; do
         JAX_TRACEBACK_FILTERING=off XLA_PYTHON_CLIENT_MEM_FRACTION=.95 MUJOCO_GL=egl jaxgcrl crl --env ${env} \
         --log_wandb --wandb_project_name normal --exp-name ${env}-${seed} --wandb_group ${env} \
         --seed ${seed}
     done
     echo "env epoch have finished 7 ."
 done
+
 echo "All runs have finished."
